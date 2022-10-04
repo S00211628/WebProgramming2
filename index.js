@@ -1,6 +1,7 @@
 const express = require("express");
 const books = require('./routes/books');
-const home = require('./routes/home')
+const home = require('./routes/home');
+const database = require('./routes/database');
 const app = express();
 const port = 3000;
 

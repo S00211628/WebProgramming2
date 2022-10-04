@@ -20,11 +20,16 @@ app.get('/chicken', (req,res) =>
 
 
   app.post("/books", (req, res) => {
-    const book = req.body;
-    books.push(book);
+   const book = req.body;
 
-    res.send("book has been added to the database");
-    console.log(`book name is ${book.name} number of book is ${books.length}`);
+   const bookNumber = books.length;
+
+   books.push(book);
+
+   res.location(`/books/${bookNumber}`);
+   res.status(201);
+   res.json(book);
+
   });
 
 app.get('/books', (req,res) => {
@@ -33,7 +38,16 @@ app.get('/books', (req,res) => {
 
 app.get('/books/:id', (req,res) => {
     let id = req.params.id;
-    res.json(books[id]);
+
+
+    if (id > books.length) {
+        res.status(404);
+        res.json("page not found")
+    }
+    else{
+        res.json(books[id]);
+    }
+    
 })
 
 app.delete('/books/:id', (req,res) => {
